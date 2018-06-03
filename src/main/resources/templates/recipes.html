@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe application</title>
+</head>
+<body>
+    <div th:each="recipe: ${recipes}">
+        <h1 th:text="${recipe.id}">Recipe</h1>
+        <h3>Category:&nbsp;</h3>
+        <div th:each="category : ${recipe.categories}">
+            <p th:text="${category.description}">Category</p>
+        </div>
+        <h3>Description:&nbsp;</h3>
+        <p th:text="${recipe.description}">Description</p>
+        <h3>Difficulty:&nbsp;</h3>
+        <p th:text="${recipe.difficulty}">Difficulty</p>
+        <h3>Prep time:&nbsp;</h3>
+        <p th:text="${recipe.prepTime}">Prep time</p>
+        <h3>Cook time:&nbsp;</h3>
+        <p th:text="${recipe.cookTime}">Cook time</p>
+        <h3>Servings:&nbsp;</h3>
+        <p th:text="${recipe.servings}">Servings</p>
+        <h3>Source:&nbsp;</h3>
+        <p th:text="${recipe.source}">Source</p>
+        <h3>URL:&nbsp;</h3>
+        <p th:text="${recipe.url}"></p>
+        <h2>Ingredients:</h2>
+        <div th:each="ingredient : ${recipe.ingredients}">
+            <span th:text="${ingredient.amount}"></span>
+
+            <span th:if="${ingredient.unitOfMeasure != null}" th:text="${ingredient.unitOfMeasure.description}"></span>
+            <span th:text="${ingredient.description}"></span><br/>
+        </div>
+        <h2>Directions:</h2>
+        <p th:text="${recipe.directions}">Directions</p>
+        <h2>Notes:</h2>
+        <p th:text="${recipe.notes.recipeNotes}">Notes</p>
+    </div><br/>
+</body>
+</html>
