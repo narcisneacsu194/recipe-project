@@ -2,8 +2,8 @@ package com.company.services;
 
 import com.company.domain.Recipe;
 
-import java.util.List;
+import java.util.Set;
 
 public interface RecipeService {
-    List<Recipe> getAllRecipes();
+    Set<Recipe> getAllRecipes();
 }

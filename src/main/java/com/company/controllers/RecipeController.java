@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class RecipeController {
@@ -18,7 +18,7 @@ public class RecipeController {
 
     @RequestMapping
     public String getRecipes(Model model){
-        List<Recipe> recipes = recipeService.getAllRecipes();
+        Set<Recipe> recipes = recipeService.getAllRecipes();
 
         model.addAttribute("recipes", recipes);
 
