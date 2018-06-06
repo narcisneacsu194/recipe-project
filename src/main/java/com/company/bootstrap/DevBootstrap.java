@@ -4,13 +4,16 @@ import com.company.domain.*;
 import com.company.repositories.CategoryRepository;
 import com.company.repositories.RecipeRepository;
 import com.company.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
 
+@Slf4j
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
@@ -26,7 +29,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent>{
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        log.info("Populating the database with recipes...");
         recipeRepository.saveAll(initData());
     }
 
@@ -116,7 +121,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent>{
         Category mexicanCategory = mexicanCategoryOptional.get();
 
         Recipe guacamoleRecipe = new Recipe();
-        guacamoleRecipe.setDescription("The BEST guacamole! So easy to make with ripe avocados, salt, serrano chiles, cilantro and lime. Garnish with red radishes or jicama. Serve with tortilla chips. Watch how to make guacamole - it's easy!");
+        guacamoleRecipe.setDescription("Perfect Guacamole");
         guacamoleRecipe.setPrepTime(10);
         guacamoleRecipe.setCookTime(0);
         guacamoleRecipe.setServings(3);
@@ -172,7 +177,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
 
         Recipe chickenTacosRecipe = new Recipe();
-        chickenTacosRecipe.setDescription("Spicy grilled chicken tacos! Quick marinade, then grill. Ready in about 30 minutes. Great for a quick weeknight dinner, backyard cookouts, and tailgate parties.");
+        chickenTacosRecipe.setDescription("Spicy Grilled Chicken Taco");
         chickenTacosRecipe.setPrepTime(20);
         chickenTacosRecipe.setCookTime(15);
         chickenTacosRecipe.setServings(6);

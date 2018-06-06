@@ -1,34 +1,34 @@
 package com.company.controllers;
 
 import com.company.domain.Category;
+import com.company.domain.Recipe;
 import com.company.domain.UnitOfMeasure;
 import com.company.repositories.CategoryRepository;
 import com.company.repositories.UnitOfMeasureRepository;
+import com.company.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
+import java.util.Set;
 
+@Slf4j
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository){
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String getIndexPage(){
-
-        Optional<Category> category = categoryRepository.getCategoryByDescription("American");
-        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.getUnitOfMeasureByDescription("teaspoon");
-
-        System.out.println("Category ID: " + category.get().getId());
-        System.out.println("UOM ID: " + unitOfMeasure.get().getId());
-
+    public String getIndexPage(Model model){
+        log.info("Visiting the main page.");
+        Set<Recipe> recipes = recipeService.getAllRecipes();
+        model.addAttribute("recipes", recipes);
         return "index";
     }
 }
