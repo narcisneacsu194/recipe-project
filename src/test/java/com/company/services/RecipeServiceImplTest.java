@@ -1,5 +1,7 @@
 package com.company.services;
 
+import com.company.converters.RecipeCommandToRecipe;
+import com.company.converters.RecipeToRecipeCommand;
 import com.company.domain.Recipe;
 import com.company.repositories.RecipeRepository;
 import org.junit.Before;
@@ -21,11 +23,18 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe,
+                recipeToRecipeCommand);
     }
 
     @Test
