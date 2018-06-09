@@ -10,11 +10,11 @@
     <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
     <div class="container-fluid" style="margin-top: 50px">
         <div class="row justify-content-center">
             <div class="col-md-6 justify-content-center">
                 <div class="card bg-light mb-6" style="max-width: 60rem;">
-                    <!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
                     <div class="card-header" th:text="${recipe.description}">
                     </div>
                     <div class="card-body">
@@ -27,7 +27,6 @@
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
                                     <li th:remove="all">cat three</li>
-                                    <!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
                                     <li th:each="category : ${recipe.categories}" th:text="${category.description}">cat one</li>
                                 </ul>
                             </div>
@@ -86,7 +85,6 @@
                                 <ul>
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
                                     <li th:each="ingredient : ${recipe.ingredients}">
                                         <span th:if="${ingredient.amount != null}" th:text="${ingredient.getAmount()} + ' '">Amount</span>
                                         <span th:if="${ingredient.unitOfMeasure != null}" th:text="${ingredient.getUnitOfMeasure().getDescription()} + ' - '">Unit of measure</span>
@@ -103,7 +101,6 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
                                 <p th:text="${recipe.directions}">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                             </div>
                         </div>

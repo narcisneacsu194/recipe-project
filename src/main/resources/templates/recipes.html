@@ -5,6 +5,7 @@
     <title>Recipe application</title>
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="com.company.domain.Recipe"*/-->
     <div th:each="recipe: ${recipes}">
         <h1 th:text="${recipe.id}">Recipe</h1>
         <h3>Category:&nbsp;</h3>
