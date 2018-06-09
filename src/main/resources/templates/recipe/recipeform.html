@@ -97,10 +97,11 @@
                                     <ul>
                                         <li th:remove="all">1 Cup of milk</li>
                                         <li th:remove="all">1 Teaspoon of chocolate</li>
-                                        <li th:each="ingredient : ${recipe.ingredients}"
-                                            th:text="${ingredient.amount + ' ' +
-                                            ingredient.unitOfMeasure.description + ' ' +
-                                            ingredient.description}"></li>
+                                        <li th:each="ingredient : ${recipe.ingredients}">
+                                            <span th:if="${ingredient.amount != null}" th:text="${ingredient.getAmount()} + ' '">Amount</span>
+                                            <span th:if="${ingredient.unitOfMeasure != null}" th:text="${ingredient.getUnitOfMeasure().getDescription()} + ' - '">Unit of measure</span>
+                                            <span th:text="${ingredient.getDescription()}">Description</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
