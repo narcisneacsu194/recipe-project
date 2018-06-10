@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredient Details</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-" crossorigin="anonymous">
+
+    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+
+    <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--/*@thymesVar id="ingredient" type="com.company.domain.Ingredient"*/-->
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row justify-content-center">
+            <div class="col-md-6 justify-content-center">
+                <div class="card bg-light mb-6">
+                    <div class="card-header" th:text="Ingredient"></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td th:text="${ingredient.id}"></td>
+                                    <td>
+                                        <span th:if="${ingredient.amount != null}" th:text="${ingredient.getAmount()} + ' '">Amount</span>
+                                        <span th:if="${ingredient.unitOfMeasure != null}" th:text="${ingredient.getUnitOfMeasure().getDescription()} + ' - '">Unit of measure</span>
+                                        <span th:text="${ingredient.getDescription()}">Description</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
