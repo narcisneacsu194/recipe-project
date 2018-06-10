@@ -78,7 +78,18 @@
 
 
                 <div class="card bg-light mb-6" style="max-width: 60rem;margin-top:50px;">
-                    <div class="card-header">Ingredients</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <h1 class="card-title">Ingredients</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id}
+                                 + '/ingredients'}" role="button">View</a>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
