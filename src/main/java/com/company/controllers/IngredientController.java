@@ -2,6 +2,7 @@ package com.company.controllers;
 
 import com.company.commands.IngredientCommand;
 import com.company.commands.RecipeCommand;
+import com.company.commands.UnitOfMeasureCommand;
 import com.company.services.IngredientService;
 import com.company.services.RecipeService;
 import com.company.services.UnitOfMeasureService;
@@ -45,6 +46,24 @@ public class IngredientController {
     }
 
     @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model){
+        RecipeCommand recipeCommand = recipeService
+                .findCommandById(Long.valueOf(recipeId));
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeCommand.getId());
+
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
     public String updateRecipeIngredient(@PathVariable Long recipeId,
                                          @PathVariable Long ingredientId,
@@ -66,5 +85,16 @@ public class IngredientController {
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() +
                 "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(@PathVariable String recipeId,
+                                   @PathVariable String ingredientId){
+
+        ingredientService.deleteIngredient(Long.valueOf(recipeId)
+                , Long.valueOf(ingredientId));
+
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 }
