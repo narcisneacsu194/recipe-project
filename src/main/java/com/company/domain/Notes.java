@@ -4,8 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode(exclude = "recipe")
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Notes {
 
