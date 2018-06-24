@@ -7,9 +7,11 @@ import com.company.services.IngredientService;
 import com.company.services.RecipeService;
 import com.company.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -35,7 +37,7 @@ public class IngredientController {
     @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/show")
     public String showRecipeIngredient(@PathVariable String recipeId,
                                        @PathVariable String ingredientId,
-                                       Model model){
+                                       Model model) throws NumberFormatException{
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId),
                         Long.valueOf(ingredientId)));
@@ -61,10 +63,11 @@ public class IngredientController {
     }
 
     @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/update")
-    public String updateRecipeIngredient(@PathVariable Long recipeId,
-                                         @PathVariable Long ingredientId,
+    public String updateRecipeIngredient(@PathVariable String recipeId,
+                                         @PathVariable String ingredientId,
                                          Model model){
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId),
+                Long.valueOf(ingredientId)));
 
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
 
@@ -90,5 +93,18 @@ public class IngredientController {
                 , Long.valueOf(ingredientId));
 
         return "redirect:/recipe/" + recipeId + "/ingredients";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleBadRequest(Exception exception){
+        log.error("Handling bad request/number format exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
     }
 }
